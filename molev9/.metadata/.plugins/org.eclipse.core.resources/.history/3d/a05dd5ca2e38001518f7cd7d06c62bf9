@@ -1,0 +1,183 @@
+package quentin.jeu.mole.utils;
+
+import java.util.Calendar;
+
+import quentin.jeu.mole.MoleGame;
+
+import com.badlogic.gdx.utils.FloatArray;
+
+public class GameData {
+	
+	//////////TIME/////////////////////
+	public int year, month, day, hour, minute, second, timelaps;
+	public int lives;
+	public int silvercoins, goldcoins;
+	public boolean skin1owned;
+	public boolean hat1own,hat2own;
+	public int hat;
+	
+	public boolean music, sound, accelerometer;
+	public boolean uA1, uA2, uA3, uAplane, uAgom, uAnotexistyet;
+	
+	//////////MAP//////////////////////
+	public float[]   starX,starY;
+	public FloatArray lvlscar;
+	public int nextlvl, explornbr, visitnbr, playerPosEvent;
+	public int lang;
+	public int skin;
+	public boolean isSignedIn;
+	public boolean newlvlunloked, newstuff;
+	
+	//////////MOLE CARACT///////////
+	public float rotspeed, acceler, airCtrl, vmin,claw; //max : 8,2,5,10,10
+	public int uspeed, ucontrol, bspeed, bcontrol, utime,uplane,ujp,urate;
+	public boolean canrock, canHrock, canlava, reward1, reward2, reward3;
+	
+	//////////ADVENTURE////////////////
+	public int jpbought=0, planebought=0, timebought=0;
+	
+	//////////SCORE//////////////
+	public int[] scores;
+	
+	
+	public GameData() {
+		
+	}
+	
+	// sets up an empty high scores table
+	public void init() {
+		//time
+		year   = Calendar.getInstance().get(Calendar.YEAR);
+		month  = Calendar.getInstance().get(Calendar.MONTH);
+		day    = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		hour   = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		minute = Calendar.getInstance().get(Calendar.MINUTE);
+		second = Calendar.getInstance().get(Calendar.SECOND);
+		
+		//belongings
+		lives=5;
+		goldcoins=0;
+		silvercoins=0;
+		
+		//mole specifications
+		rotspeed =3;
+		acceler  =1;
+		airCtrl  =1;
+		vmin     =5;
+		
+		//score
+		scores= new int[5000];
+		
+		//skin
+		skin=0;
+		
+		//configuration
+		newlvlunloked  =  false;
+		newstuff = false;
+		music = true;
+		sound = true;
+		lang  = -1;
+		
+		//map
+		nextlvl = 0;
+		starX   = new float []{138,246,354,470,574,686,784,824,752,660,562,560,660,772,826,742,640,538,434,326,222,136,74,109,206,288,380,432,374,268,168,94,158,254,352,450,542,636,748,818,774,664,608,690,798,842,776,680,586,500,408,304,225,130,82,162 };
+		starY   = new float []{44,48,56,62,66,54,68,134,192,206,232,330,354,326,414,482,502,490,456,460,480,536,624,710,728,680,720,802,878,880,860,918,996,1038,1046,1000,950,918,917,984,1076,1102,1188,1252,1242,1324,1387,1380,1404,1450,1498,1494,1432,1414,1494,1543 };
+		lvlscar= new FloatArray();
+		addlevel(MoleGame.GLLVL      , 4    , MoleGame.LIMITTIME,45,  2000, 15000);
+		addlevel(MoleGame.SCORELVL   , 3500 , MoleGame.LIMITTIME,45,  5000, 10000);
+		addlevel(MoleGame.GLLVL      , 3    , MoleGame.LIMITJUMP,10,  5000, 10000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME,45,  5000, 10000);
+		addlevel(MoleGame.COINLVL    , 10   , MoleGame.LIMITTIME,45,  5000, 15000);
+		addlevel(MoleGame.SCORELVL   , 3500 , MoleGame.LIMITJUMP,10,  5000, 15000); ///5 speed 1
+		addlevel(MoleGame.DISTLVL    , 350  , MoleGame.LIMITTIME,45,  7500, 15000);
+		addlevel(MoleGame.GLLVL      , 5    , MoleGame.LIMITTIME,45, 10000, 20000);
+		addlevel(MoleGame.SCORELVL   , 10000, MoleGame.LIMITTIME,60, 15000, 30000);
+		addlevel(MoleGame.HEIGHTLVL  , 10   , MoleGame.LIMITJUMP,10, 10000, 20000); //9 control 1 
+		addlevel(MoleGame.DISTLVL    , 500  , MoleGame.LIMITTIME,55, 20000, 30000); //10 unlock bonus time 
+		addlevel(MoleGame.CONSEQGLLVL, 7    , MoleGame.LIMITTIME,45, 20000, 30000); //11 ground not soft 
+		addlevel(MoleGame.SCORELVL   , 18000, MoleGame.LIMITTIME,45, 25000, 35000);
+		addlevel(MoleGame.COMBOLVL   , 1    , MoleGame.LIMITTIME,60, 25000, 50000);
+		addlevel(MoleGame.COINLVL    , 30   , MoleGame.LIMITJUMP,15, 20000, 40000);
+		addlevel(MoleGame.GLLVL      , 6    , MoleGame.LIMITTIME,30, 15000, 40000); //15  30 silver coins offered (2 stars)
+		addlevel(MoleGame.DISTLVL    , 600  , MoleGame.LIMITJUMP,20, 30000, 60000);
+		addlevel(MoleGame.SCORELVL   , 50000, MoleGame.LIMITTIME,130, 70000, 90000);
+		addlevel(MoleGame.GLLVL      , 10   , MoleGame.LIMITJUMP,11, 70000, 100000);
+		addlevel(MoleGame.HEIGHTLVL  , 30   , MoleGame.LIMITTIME,60, 50000, 90000);
+		addlevel(MoleGame.CONSEQGLLVL, 12   , MoleGame.LIMITTIME,45, 20000, 40000);//20 unlock arcade1 
+		addlevel(MoleGame.BIGAIRLVL  , 4500 , MoleGame.LIMITTIME,60, 60000, 70000);//21 GOM(3 stars)
+		///next red rock
+		addlevel(MoleGame.DISTLVL    , 600  , MoleGame.LIMITTIME,55, 20000, 30000);
+		addlevel(MoleGame.HEIGHTLVL  , 30   , MoleGame.LIMITTIME,60, 50000, 90000); //22 ground harder
+		addlevel(MoleGame.GLLVL      , 20   , MoleGame.LIMITTIME,30, 70000, 100000);
+		addlevel(MoleGame.SCORELVL   , 50000, MoleGame.LIMITTIME,130,70000, 90000);
+		addlevel(MoleGame.DIGLVL     , 300  , MoleGame.LIMITTIME,55, 15000, 30000); //25 bonus plane
+		addlevel(MoleGame.COINLVL    , 50   , MoleGame.LIMITTIME,50, 50000, 90000);
+		addlevel(MoleGame.SCORELVL   , 60000, MoleGame.LIMITJUMP,40 ,80000, 100000);
+		addlevel(MoleGame.COMBOLVL   , 3    , MoleGame.LIMITTIME,120, 100000, 120000);
+		addlevel(MoleGame.DIGLVL     , 600  , MoleGame.LIMITTIME,120, 100000, 120000);
+		addlevel(MoleGame.DISTLVL    , 500  , MoleGame.LIMITTIME,45, 20000, 30000); //31  50 gold coins offered  (3 stars)
+		addlevel(MoleGame.HEIGHTLVL  , 70   , MoleGame.LIMITTIME,90, 100000, 120000);
+		addlevel(MoleGame.BIGAIRLVL  , 15000, MoleGame.LIMITTIME,120, 100000, 120000);
+		addlevel(MoleGame.COINLVL    , 50   , MoleGame.LIMITJUMP,20 , 50000, 90000); //34 unlock speed 2 ( 2 stars)
+		addlevel(MoleGame.GLLVL      , 12   , MoleGame.LIMITJUMP,12, 70000, 100000);
+		addlevel(MoleGame.BIGAIRLVL  , 20000, MoleGame.LIMITTIME,120, 100000, 120000);
+		addlevel(MoleGame.CONSEQGLLVL, 30   , MoleGame.LIMITTIME,45 , 15000, 30000); //35 control 2
+		addlevel(MoleGame.COMBOLVL   , 1    , MoleGame.LIMITTIME,45 , 15000, 30000);
+		addlevel(MoleGame.COINLVL    , 100  , MoleGame.LIMITTIME,145, 50000, 90000); //37 unlock jet pack
+		addlevel(MoleGame.HEIGHTLVL  , 130  , MoleGame.LIMITTIME,150, 100000, 120000);
+		addlevel(MoleGame.SCORELVL   , 70000, MoleGame.LIMITJUMP,40 ,80000, 100000);
+		addlevel(MoleGame.DIGLVL     , 600  , MoleGame.LIMITTIME,100, 100000, 120000); //40 unlock arcade 2
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,8 , 15000, 30000); //41 plane level (3 stars)
+		///city
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);//45 speed 3
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);//50 unlock jet pack
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		addlevel(MoleGame.CONSEQGLLVL, 2    , MoleGame.LIMITTIME  ,5 , 15000, 30000);
+		
+	}
+
+	private void addlevel(int type, int objectif, int limittype, int limit, int score1, int score2) {
+		lvlscar.add(type);
+		lvlscar.add(objectif); 
+		lvlscar.add(limittype);
+		lvlscar.add(limit);
+		lvlscar.add(score1);
+		lvlscar.add(score2);
+	}
+	
+}

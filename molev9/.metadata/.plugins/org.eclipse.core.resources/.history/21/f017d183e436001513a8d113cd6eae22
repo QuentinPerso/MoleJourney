@@ -1,0 +1,176 @@
+package quentin.jeu.mole.graphics;
+
+
+
+import quentin.jeu.mole.interpolate.BaseTween;
+import quentin.jeu.mole.interpolate.Sine;
+import quentin.jeu.mole.interpolate.SpriteAccessor;
+import quentin.jeu.mole.interpolate.Tween;
+import quentin.jeu.mole.interpolate.TweenCallback;
+import quentin.jeu.mole.interpolate.TweenManager;
+
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
+
+public class Background {
+	
+	private TweenManager tweenManager;
+	private Sprite image;
+	private OrthographicCamera cam;
+	private float depth;
+
+	private float positionY, offfreq;
+	private int frequence;
+	private int numDrawX;
+	private int xoffset;
+	public final static int NONE=0, WIND1=1, WIND2=2, WIND3=3;
+	
+	/** PosY relative to your image's height, depth beTween 0 and 1 (1 bg speed=cam speed) default 0 (static bg)
+	 *   */
+	
+	public Background( TweenManager TweenManager, final Sprite image, int animtype, OrthographicCamera gameCam, float depth, float positionY, int frequence) {
+		this.image = image;
+		this.tweenManager=TweenManager;
+		this.cam = gameCam;
+		this.depth = depth;
+		numDrawX = 5*frequence;
+		this.positionY = positionY;
+		xoffset = -numDrawX/2;
+		this.frequence=frequence;
+		switch(animtype) {
+			case NONE:
+				break;
+			case WIND1:
+				Tween.call(windCallback1).start(TweenManager);
+				break;
+			case WIND2:
+				Tween.call(windCallback2).start(TweenManager);
+				break;
+		}
+	}
+	
+	public Background(TweenManager TweenManager,final Sprite image, int animtype, OrthographicCamera gameCam, float depth, float positionY, int frequence, float offfreq) {
+		this.image = image;
+		this.tweenManager=TweenManager;
+		this.offfreq=offfreq;
+		this.cam = gameCam;
+		this.depth = depth;
+		numDrawX = 5*frequence;
+		this.positionY = positionY;
+		xoffset = -numDrawX/2;
+		this.frequence=frequence;
+		switch(animtype) {
+			case NONE:
+				break;
+			case WIND1:
+				Tween.call(windCallback1).start(TweenManager);
+				break;
+			case WIND2:
+				Tween.call(windCallback2).start(TweenManager);
+				break;
+		}
+	}
+
+	public Background(TweenManager TweenManager,Sprite image, int animtype, OrthographicCamera gameCam, float positionY, int frequence) {
+		this.image = image;
+		this.tweenManager=TweenManager;
+		this.cam = gameCam;
+		this.depth = 0;
+		numDrawX = 5*frequence;
+		this.positionY = positionY;
+		xoffset = -numDrawX/2;
+		this.frequence=frequence;
+		switch(animtype) {
+			case NONE:
+				break;
+			case WIND1:
+				Tween.call(windCallback1).start(TweenManager);
+			case WIND2:
+				Tween.call(windCallback2).start(TweenManager);
+				break;
+			case WIND3:
+				Tween.call(windCallback3).start(TweenManager);
+				break;
+		}
+	}
+	
+	public void render(SpriteBatch sb) {
+		
+		float x = ((cam.position.x) * depth*0.6f) ;
+		float y = ((cam.position.y) * depth*0.1f) ;
+		
+		//left side<first image
+		while((cam.position.x-cam.viewportWidth*cam.zoom/2<x+(xoffset) * (image.getWidth()))){
+			xoffset--;
+			
+		}
+		//right side> last image
+		while(cam.position.x+cam.viewportWidth*cam.zoom/2>(x+(numDrawX+xoffset-1) * (image.getWidth()))){
+			xoffset++;
+		}
+
+		for(int col = -(numDrawX/2+1)+xoffset; col < numDrawX+xoffset; col++) {
+			image.setPosition(x+(col+offfreq) * (image.getWidth()), y+positionY*image.getHeight());
+			if(onScreen(image) && col%frequence==0)image.draw(sb);
+		}
+	}
+	
+	/*public void render(SpriteBatch sb, float posy) {
+		
+		sb.setProjectionMatrix(cam.combined);
+		
+		float x = (( cam.viewportWidth / 2 + cam.position.x) * depth*6) % (numDrawX*image.getWidth());
+		float y = (( cam.viewportHeight / 2 + cam.position.y) * depth*1) ;
+		
+		int colOffset = x > 0 ? -frequence : 0;
+		
+		for(int col = -(numDrawX/2+1)+xoffset; col < numDrawX+xoffset; col= col+ frequence) {
+			
+			image.setPosition(x+(col+colOffset) * (image.getWidth()), y+posy*image.getHeight());
+			if(onScreen(image))image.draw(sb);
+		}
+	}*/
+	
+	private boolean onScreen(Sprite image){
+		if(true && cam.position.x-cam.viewportWidth*cam.zoom/2<(image.getX()+image.getWidth())
+				&& cam.position.x+cam.viewportWidth*cam.zoom/2>(image.getX())
+				&& cam.position.y-cam.viewportHeight*cam.zoom/2<(image.getY()+image.getHeight()) 
+				&& cam.position.y+cam.viewportHeight*cam.zoom/2>(image.getY()))
+			 return true;
+		else return false;
+	}
+
+	private final TweenCallback windCallback1 = new TweenCallback() {
+		@Override
+		public void onEvent(int type, BaseTween<?> source) {
+			 float d = MathUtils.random() * 1.5f + 1f;    // duration
+		     float t = 0.05f * image.getHeight();         // amplitude
+		     (Tween.to(image, SpriteAccessor.SKEW_Y1X2X3, d).target(-2*t, t, t).ease(Sine.INOUT).repeatYoyo(1, 0).setCallback(windCallback1))
+		     .start(tweenManager);
+		  
+		}
+	};
+	
+	private final TweenCallback windCallback2 = new TweenCallback() {
+		@Override
+		public void onEvent(int type, BaseTween<?> source) {
+			 float d = 1.25f; 									              // duration
+		     float t = (MathUtils.random()+0.25f)* image.getHeight();         // amplitude
+		     (Tween.to(image, SpriteAccessor.SKEW_X2X3, d).target(t, t).ease(Sine.INOUT).repeatYoyo(1, 0).setCallback(windCallback2))
+		     .start(tweenManager);
+		}
+	};
+
+	private final TweenCallback windCallback3 = new TweenCallback() {
+	    @Override
+	    public void onEvent(int type, BaseTween<?> source) {
+	        float d = MathUtils.random() * 0.5f + 0.5f;    // duration
+	        float t = -0.5f * image.getHeight();    // amplitude
+	    
+	            (Tween.to(image, SpriteAccessor.SKEW_X2X3, d).target(t, t).ease(Sine.INOUT).repeatYoyo(1, 0).setCallback(windCallback3))
+	            .start(tweenManager);
+	    }
+	};
+}

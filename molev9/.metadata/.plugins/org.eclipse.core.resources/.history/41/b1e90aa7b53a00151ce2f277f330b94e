@@ -1,0 +1,47 @@
+
+moleold.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+body
+  rotate: false
+  xy: 1, 1
+  size: 533, 280
+  orig: 533, 280
+  offset: 0, 0
+  index: -1
+pawf
+  rotate: false
+  xy: 536, 123
+  size: 376, 158
+  orig: 376, 158
+  offset: 0, 0
+  index: -1
+pawr
+  rotate: false
+  xy: 536, 3
+  size: 165, 118
+  orig: 165, 118
+  offset: 0, 0
+  index: -1
+eye1
+  rotate: false
+  xy: 703, 29
+  size: 81, 92
+  orig: 81, 92
+  offset: 0, 0
+  index: -1
+eye2
+  rotate: false
+  xy: 786, 29
+  size: 81, 92
+  orig: 81, 92
+  offset: 0, 0
+  index: -1
+tail
+  rotate: false
+  xy: 869, 46
+  size: 85, 75
+  orig: 85, 75
+  offset: 0, 0
+  index: -1

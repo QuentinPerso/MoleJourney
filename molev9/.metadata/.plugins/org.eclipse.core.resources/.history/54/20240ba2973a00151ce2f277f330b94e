@@ -1,0 +1,145 @@
+map1=Beginning Valley
+map2=Red Rock Valley
+map3=Ruin City
+map3=Comming Soon...
+
+bank     =Mole Bank
+upgrade1 =Upgrade for 
+buy1     =Buy for 
+goldquest=\ Gold ?
+silvquest=\ Platine ?
+lvl      =Lvl. 
+speed    =Speed
+control  =Control
+lives    =5 Lives!
+shop     =Mole Shop
+bonusttl =Hard Time?\n Have a Booster!
+quit     =Exit?
+
+uspeed  =Speed Up!!!
+ucontrol=Control Up!!!
+ubonus  =Bonus Unlocked!!
+ucoin1  =20 Free Coins!
+ucoin2  =100 Gold Coins! 
+ulevel  =New Challenge level!
+urate   =Having a good time?
+
+skin0  =Classic Mole
+skin1  =Good ol' Mole
+hat0   =No hat...
+hat1   =Tacos Summer Love
+hat2   =It belongs in a Museum!
+
+level = == Level 
+warning0=!! Soft and gentle ground !!
+warning1=!! Harder Ground : no bonus speed !!
+warning2=!! Even Harder Ground : you lose speed !!
+
+locked=... Locked ...
+ld    =Level locked... \n Prove your skills first, by traveling a bit
+
+a1 =Good Ol' Time
+a1d=Good old time, good old rules! \n Score as many points as you can in 90 seconds
+a2 =New Challenge
+a2d=Use your well-trained mole to score as many points as you can! \n ( Tip : collect bonus and have style )
+a3 =Flying Mole
+a3d=How far can you go in ONE jump? \n ( Tip : Do you have a Hang Glider? A Jet Pack?? So use it!! )
+a4 =Monument Challenge
+a4d=New ground, new challenge! \n Beware of your speed or you gonna have a bad time!
+a5 =Urban Challenge
+a5d=New ground, new challenge! \n Beware of your speed or you gonna have a bad time!
+a6 =Good Ol' Time
+a6d=New ground, new challenge! \n Beware of your speed or you gonna have a bad time!
+a7 =Good Ol' Time
+a7d=New ground, new challenge! \n Beware of your speed or you gonna have a bad time!
+
+
+lmttime1=\ in 
+lmttime2=\ second
+lmtjump1=\ in 
+lmtjump2=\ jumps
+
+objscore1 =Score 
+objscore2 =\ points
+objcombo1 =Do 
+objcombo2 =\ combos 
+objbair1  =Make a 
+objbair2  =\ points Big Air 
+objconsgl1=Land properly 
+objconsgl2=\ times in a row\n
+objdig1   =Dig 
+objdig2   =\ meters 
+objgl1    =Do 
+objgl2    =\ good landings 
+objheight1=Reach 
+objheight2=\ meters high
+objdist1  =Travel a distance of 
+objcoin1  =Collect 
+objcoin2  =\ coins
+
+
+c2c =Click to continue
+tuto1=Interesting... A traveling mole! 
+tuto2=But calm down and control yourself! 
+tuto3=This is how we do: 
+tuto4=Touch left \n to turn counterclockwise 
+tuto5=Touch right \n to turn clockwise! Easy no? 
+tuto6=You have a long road to go... So here is a trick: 
+tuto7=Jump and land in the \"Green Zone\" to gain speed 
+tuto8=Well done! Do tricks to gain more speed on landing 
+tuto9=Here the ground is soft and easy. 
+tuto10=You gain speed while digging!! 
+tuto11=But it will not always be this way, trust me! 
+tuto12=Let's hope you will improve your skills... 
+tuto13=Anyway! Do a few good landings to go to the next level
+
+tuto14=Wahoo! You have a new Power !
+tuto15=I'm impressed, I never thought you'd go this far! 
+tuto16=Now you can slow down time! 
+tuto17=Press the button to slow time
+tuto18=Press again to come back to normal speed
+tuto19=Used well, it may help you to land, avoid colliding with grounds,
+tuto20=and even make more tricks and be a star among moles!
+tuto21=Have you been to the shop yet?
+tuto22=What did you think those gold coins were for??
+tuto23=In it you can upgrade your powers and your skills!
+tuto24=Enough talk, get back to work now!
+tuto25=And try to get 3 stars to unlock more stuff!
+
+skip=Skip
+
+best     =High Score:   
+newbest  =NeW HighScore!!!
+
+objscore=Score : 
+objheigh=Highness : 
+objdig  =Dug : 
+objgl   =Good Landings : 
+objcoin =Coins : 
+objdist =Distance :   
+
+fcom1=Backflip! \n 
+fcom2=Awsome double backflip \n 
+fcom3=TRIPLE back!!! \n 
+fcom4=Amazing QUADRUPLE B.F.!!!!\n 
+fcom5=WHAT THE ?!?!? \n 
+
+bcom1=Nice frontflip\n 
+bcom2=Keep it real, mole...\n 
+bcom3=Amazing TRIPLE!!!\n 
+bcom4=OuTsTaNdInG QUADRUPLE!!!!\n 
+bcom5=WHAT THE ?!?!?\n 
+
+hcom1=L
+hcom2=oooooooo
+hcom3=ng Hole \n 
+hcom4=LoOoOoOong Hole!! \n
+
+lcom1=Good Landing!
+lcom2=Perfect Landing!!!
+
+bnscom1=Oh my CLAWS!!
+bnscom2=Control up!!
+bnscom3=+5s, speed up... What else? 
+
+heightcom1=New Max Height : \n+

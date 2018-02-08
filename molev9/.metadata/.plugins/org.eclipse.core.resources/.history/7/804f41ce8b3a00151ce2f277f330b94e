@@ -1,0 +1,336 @@
+package quentin.jeu.mole.ui;
+
+import quentin.jeu.mole.MoleGame;
+import quentin.jeu.mole.entities.Mole;
+
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.physics.box2d.Body;
+
+
+public class ProgressDisp {
+
+	private Mole mole;
+	
+	////Limits
+	public CharSequence limitchar;
+	private float time=0;
+	public int limit;
+	private int limittype;
+	private int second, minute, jump;
+	public boolean gameover = false;
+	
+	////Objectives
+	public String progresschar;
+	private int type, objectiv,lvl;
+	public int coins;
+	public boolean win = false;
+	
+	/////score
+	public boolean upflip=false, upheight=false, uphole=false; //for user interface
+	public int score, upscore = 0,bigairscore;
+	private boolean jumped=true, landed=false;
+	public boolean updatejumpui=false;
+	///height score
+	private float height, oldheight=0, prvmaxheight=0, maxheight;
+	///style score
+	private int backflip, frontflip, frontflipx, backflipx;
+	private float angleflip, anglejump;
+	private int combocheck=0, combo, totalcombo;
+	///hole score
+	private int holeL,holeLx;
+	///comments
+	private CharSequence flipcom, heightcom;
+	public CharSequence sflipcom, landcom, sheightcom, holecom; //saved for fade out animation
+	
+	public ProgressDisp(Mole mole, int lvl, int type, int objectif, int limittype, int limit){
+		this.mole=mole;
+		this.lvl=lvl;
+		////limit
+		this.limittype = limittype;
+		this.limit=limit;
+		if(limittype==MoleGame.LIMITTIME){
+			minute=limit/60;
+			second=limit%60;
+		}
+		///Objective
+		this.type=type;
+		this.objectiv=objectif;
+		
+		heightcom =""; 
+		flipcom = "";
+	}
+	
+	public void update() {
+		Body molebody=mole.molebody;
+		if(lvl==MoleGame.ARCADEPLANE){
+			score=10*(int)mole.dist;
+		}
+		
+		//Get max height of the mole(for score)
+		if(!mole.isudg0 && molebody.getLinearVelocity().y>0)
+			height = molebody.getPosition().y;
+		if(oldheight<height){
+			upheight=true;
+			oldheight = height; 
+			heightcom = MoleGame.myBundle.get("heightcom1") +Integer.toString((500*((int)height-(int)prvmaxheight))); 
+		} 
+		maxheight = (Math.max(oldheight,height));
+		
+		//update flip comment
+		stylecomment();
+		
+		 /////===================landing
+		if(mole.isudg0 && !landed){
+			holecom="";
+			if(mole.goodlandui>0){
+				if(!gameover){
+					score += 500*((int)maxheight-(int)prvmaxheight) +1500*frontflipx*(combo+1)+1000*backflipx*(combo+1);
+					bigairscore=Math.max(bigairscore, 1500*frontflipx*(combo+1)+1000*backflipx*(combo+1));
+				}
+				upscore=1;
+				prvmaxheight=maxheight;
+				anglejump = molebody.getAngle()*MathUtils.radiansToDegrees;
+				backflip  = 0;
+				frontflip = 0;
+				backflipx  = 0;
+				frontflipx = 0;
+				landed=true;
+				totalcombo+=combo;
+				combo=0;
+				combocheck=0;
+				if(mole.goodlandui==1)landcom=MoleGame.myBundle.get("lcom1");
+				if(mole.goodlandui==2)landcom=MoleGame.myBundle.get("lcom2");
+				mole.goodlandui=0;
+			}
+			else{
+				upscore=2;
+				if(!gameover)score += 500*((int)maxheight-(int)prvmaxheight);
+				prvmaxheight=maxheight;
+				sflipcom= flipcom;
+			 	sheightcom = heightcom;
+				anglejump = molebody.getAngle()*MathUtils.radiansToDegrees;
+				backflip  = 0;
+				frontflip = 0;
+				backflipx  = 0;
+				frontflipx = 0;
+				landed=true;
+				combo=0;
+				combocheck=0;
+			}
+		}
+		///======================= digging
+		else if(mole.isudg0){  
+			if(mole.colided){ ////// hit undergroud
+				if(!gameover)score += 1000*holeLx;
+				holeL=0;
+				holeLx=0;
+				updatejumpui=true;
+				mole.colided=false;
+			}
+			if(mole.holeLscore>60 && lvl>=22){
+				uphole=true;
+				mole.holeLscore=0;
+				holeL+=1;
+				holeLx+=holeL;
+				if(holeL<=6){
+					String manyO= MoleGame.myBundle.get("hcom2");
+					holecom = MoleGame.myBundle.get("hcom1")+ manyO.substring(0, holeL) +MoleGame.myBundle.get("hcom3")+Integer.toString(1000*holeLx);
+				}
+				else holecom =  MoleGame.myBundle.get("hcom4") +Integer.toString(1000*holeLx);
+			}
+			jumped=false;
+		}
+		///==================== jumping
+		else if(!mole.isudg0 && !jumped){ 
+			if(!gameover)score += 1000*holeLx;
+			holeL=0;
+			holeLx=0;
+			jump++;
+			updatejumpui=true;
+			jumped=true;
+		}
+		else {
+			sflipcom= "";
+		 	sheightcom = "";
+		 	landed=false;
+		 	//switch back and front if going left
+			if(molebody.getLinearVelocity().x>0)
+				angleflip = molebody.getAngle()*MathUtils.radiansToDegrees - anglejump;
+			else
+				angleflip = -molebody.getAngle()*MathUtils.radiansToDegrees + anglejump;
+			
+			if ((angleflip>180 && backflip==0)||(angleflip>360)  && !upflip){
+				backflip = backflip+1;
+				mole.backflip+=1;
+				if(combocheck==1) {
+					combo++;
+					mole.combo++;
+				}
+				combocheck=-1;
+				anglejump=molebody.getAngle()*MathUtils.radiansToDegrees;
+				backflipx += backflip;
+				upflip=true;
+			}
+			if ((angleflip<-360)  && !upflip){ 								
+				frontflip = frontflip+1;
+				mole.frontflip+=1;
+				if(combocheck==-1){
+					combo++;
+					mole.combo++;
+				}
+				combocheck=1;
+				anglejump=molebody.getAngle()*MathUtils.radiansToDegrees;
+				frontflipx += frontflip;
+				upflip=true;
+			}
+			sflipcom= flipcom;
+		 	sheightcom = heightcom;
+	    }	
+		
+		///=====================OBJECTVES====================//////
+		if(type==MoleGame.ARCADELVL){
+			win =true;
+			progresschar = MoleGame.myBundle.get("objscore") +Integer.toString(score);
+		}
+		if(type==MoleGame.HEIGHTLVL){
+			if(maxheight >=objectiv) win =true;
+			progresschar = MoleGame.myBundle.get("objheigh") +Integer.toString((int) maxheight)+"m/"+Integer.toString(objectiv)+"m";
+		}
+		if(type==MoleGame.SCORELVL){
+			if(score>=objectiv) win =true;
+			progresschar = MoleGame.myBundle.get("objscore") +Integer.toString(score)+"/"+Integer.toString(objectiv);
+		}
+		if(type==MoleGame.COMBOLVL){
+			if(totalcombo>=objectiv)win =true;
+			progresschar = "Combos : " +Integer.toString(totalcombo)+"/"+Integer.toString(objectiv);
+		}
+		if(type==MoleGame.DIGLVL){
+			if((int)mole.totholeL>=objectiv)win =true;
+			progresschar = MoleGame.myBundle.get("objdig") +Integer.toString((int)mole.totholeL)+"m/"+Integer.toString(objectiv)+"m";
+		}
+		if(type==MoleGame.BIGAIRLVL){
+			if( bigairscore>=objectiv) win =true;
+			progresschar = "Big Air : " +Integer.toString(bigairscore)+"/"+Integer.toString(objectiv);
+		}
+		if(type==MoleGame.GLLVL){
+			if(mole.totalgoodland>=objectiv) win =true;
+			progresschar = MoleGame.myBundle.get("objgl") +Integer.toString(mole.totalgoodland)+"/"+Integer.toString(objectiv);
+		}
+		if(type==MoleGame.CONSEQGLLVL){
+			if(mole.goodland>=objectiv) win =true;
+			progresschar = MoleGame.myBundle.get("objgl") +Integer.toString(mole.goodland)+"/"+Integer.toString(objectiv);
+		}
+		if(type==MoleGame.COINLVL){
+			if(coins>=objectiv) win =true;
+			progresschar = MoleGame.myBundle.get("objcoin") +Integer.toString(coins)+"/"+Integer.toString(objectiv);
+		}
+		if(type==MoleGame.DISTLVL){
+			if(mole.dist>=objectiv) win =true;
+			progresschar = MoleGame.myBundle.get("objdist") +Integer.toString(mole.dist)+"/"+Integer.toString(objectiv)+"m";
+		}
+		
+		///=====================LIMITS=======================/////
+		//System.out.println(limittype);
+		if(limittype==MoleGame.LIMITTIME){
+			updatetime();
+		}
+		else if(limittype==MoleGame.LIMITJUMP){
+			limitchar = "Jump : " +Integer.toString(jump)+"/"+Integer.toString(limit);
+			if(jump>=limit && mole.isudg0){
+				gameover =true;
+			}
+		}
+	}
+
+	private void updatetime() {
+		time += 1;
+		if(time==60){ second-=1; time =0;}
+		if(second > 60){ minute+=1; second =0;}
+		if(second < 0){ minute-=1; second =59;}
+	
+		if( minute <0) limitchar = "0:00";
+		else if(second>=10) limitchar = Integer.toString(minute)+":"+Integer.toString(second);
+		else if(second<10) limitchar = Integer.toString(minute)+":0"+Integer.toString(second);
+		
+		if( minute <0 && mole.isudg0) {
+			gameover =true;
+		}
+		
+		
+	}
+
+	public void addtime(int minute, int second){
+		this.minute+=minute;
+		this.second+=second;
+	}
+	
+	public void settime(int minute, int second){
+		this.minute=minute;
+		this.second=second;
+	}
+	
+	private void stylecomment() {
+		switch(frontflip) {
+		case 1:
+			flipcom = MoleGame.myBundle.get("bcom1") + Integer.toString(1500*frontflipx*(combo+1));
+			break;
+		case 2:
+			flipcom = MoleGame.myBundle.get("bcom2") + Integer.toString(1500*frontflipx*(combo+1));
+			break;
+		case 3:
+			flipcom = MoleGame.myBundle.get("bcom3") + Integer.toString(1500*frontflipx*(combo+1));
+			break;
+		case 4:
+			flipcom = MoleGame.myBundle.get("bcom4") + Integer.toString(1500*frontflipx*(combo+1));
+			break;
+		case 5:
+			flipcom = MoleGame.myBundle.get("bcom5") + Integer.toString(1500*frontflipx*(combo+1));
+			break;
+		}
+     if(frontflip>5) flipcom = " ??? \n"+ Integer.toString(1500*frontflipx*(combo+1));
+     
+     if(frontflip == 0) {
+     	switch(backflip) {
+     	case 1:
+			flipcom =  MoleGame.myBundle.get("fcom1") + Integer.toString(1000*backflipx*(combo+1));
+			break;
+		case 2:
+			flipcom =  MoleGame.myBundle.get("fcom2") + Integer.toString(1000*backflipx*(combo+1));
+			break;
+		case 3:
+			flipcom =  MoleGame.myBundle.get("fcom3") + Integer.toString(1000*backflipx*(combo+1));
+			break;
+		case 4:
+			flipcom =  MoleGame.myBundle.get("fcom4") + Integer.toString(1000*backflipx*(combo+1));
+			break;
+		case 5:
+			flipcom =  MoleGame.myBundle.get("fcom5") + Integer.toString(1000*backflipx*(combo+1));
+			break;
+     	}
+     if(backflip>5) 
+    	 flipcom = "??? \n"+ Integer.toString(1000*backflipx*(combo+1));
+     }
+     else {
+     	String comment1 = flipcom +"\n COMBO! x" +Integer.toString(combo)+ "\n";      
+     	switch(backflip){
+	     	case 1:
+				flipcom = comment1 + MoleGame.myBundle.get("fcom1") + Integer.toString(1000*backflipx*(combo+1));
+				break;
+			case 2:
+				flipcom = comment1 + MoleGame.myBundle.get("fcom2") + Integer.toString(1000*backflipx*(combo+1));
+				break;
+			case 3:
+				flipcom = comment1 + MoleGame.myBundle.get("fcom3") + Integer.toString(1000*backflipx*(combo+1));
+				break;
+			case 4:
+				flipcom = comment1 + MoleGame.myBundle.get("fcom4") + Integer.toString(1000*backflipx*(combo+1));
+				break;
+			case 5:
+				flipcom = comment1 + MoleGame.myBundle.get("fcom5") + Integer.toString(1000*backflipx*(combo+1));
+				break;
+	     	}
+     	 if(backflip>5) flipcom = comment1 + "??? \n"+ Integer.toString(1000*backflipx*(combo+1));
+     }
+		
+	}
+}

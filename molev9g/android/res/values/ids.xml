@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_id">1016296940149</string>
+  <string name="achievement_cute_adventurer">CgkI9cSSgModEAIQAw</string>
+  <string name="achievement_try_hard">CgkI9cSSgModEAIQBA</string>
+  <string name="achievement_time_slower">CgkI9cSSgModEAIQBQ</string>
+  <string name="achievement_flying_mole">CgkI9cSSgModEAIQBg</string>
+  <string name="achievement_try_harder">CgkI9cSSgModEAIQBw</string>
+  <string name="achievement_lil_adventurer">CgkI9cSSgModEAIQCA</string>
+  <string name="achievement_rocket_mole">CgkI9cSSgModEAIQCQ</string>
+  <string name="leaderboard_good_ol_time">CgkI9cSSgModEAIQAQ</string>
+  <string name="leaderboard_new_challenge">CgkI9cSSgModEAIQAg</string>
+  <string name="leaderboard_monumental_challenge">CgkI9cSSgModEAIQCg</string>
+  <string name="leaderboard_flying_mole">CgkI9cSSgModEAIQCw</string>
+</resources>

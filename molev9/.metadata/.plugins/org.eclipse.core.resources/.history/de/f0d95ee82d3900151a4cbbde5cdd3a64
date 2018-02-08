@@ -1,0 +1,149 @@
+map1=Vall\u00e9e du Commencement
+map2=Vall\u00e9e des Cailloux Rouges
+map3=Ville (un peu d\u00e9truite)
+map3=Prochainement...
+
+
+bank     =La Banque
+shop     =La Boutique
+upgrade1 =Am\u00e9liorer pour 
+buy1     =Acheter pour 
+goldquest=\ pi\u00e8ces d'Or ?
+silvquest=\ pi\u00e8ces de Platine ?
+lvl      =Niv. 
+speed    =Vitesse
+control  =Contr\u00f4le
+lives    =5 Vies !
+bonusttl =Pssst....\n Tu veux du Booster?
+quit     =Quitter ?
+
+uspeed  =Vitesse Am\u00e9lior\u00e9e !!!
+ucontrol=Contr\u00f4le Am\u00e9lior\u00e9 !!!
+ubonus  =Bonus D\u00e9v\u00e9rouill\u00e9 !!
+ucoin1  =20 pi\u00e8ces offertes !
+ucoin2  =100 pi\u00e8ces offertes ! 
+ulevel  =Nouveau Niveau !
+urate   =Vous aimez le jeu ?
+
+skin0  =Taupe Classique
+skin1  =Bonne vieille Taupe
+hat0   =Pas de chapeau...
+hat1   =Grand Chapeau... !!
+hat2   =Sa place est dans un mus\u00e9e !
+
+level = == Niveau 
+warning0=!! Un sol meuble et doux !!
+warning1=!! Sol plus dur : pas de vitesse bonus  !!
+warning2=!! Sol encore plus dur : perte de vitesse !!
+
+locked=... Verrouill\u00e9 ...
+ld    =Niveau Verrouill\u00e9... \n Prouve ton talent en mode Aventure !!
+
+a1 =Bon vieux temps
+a1d=Ah, cette bonne vieille \u00e9poque o\u00f9 il fallait juste \n faire un maximum de points !
+a2 =Nouveau D\u00e9fi
+a2d=Utiliser votre taupe surentraîn\u00e9e pour \n marquer un maximum de points 
+a3 =Une taupe volante ??
+a3d=Quelle distance une taupe peut-elle parcourir en 1 saut ?
+a4 =D\u00e9fi monumental
+a4d=Nouveau d\u00e9cor nouveau d\u00e9fi ! \n Le sol est dur alors attention \u00e0 votre vitesse !
+a5 =D\u00e9fi urbain
+a5d=Nouveau d\u00e9cor nouveau d\u00e9fi ! \n Le sol est dur alors attention \u00e0 votre vitesse !
+a6 =Good Ol' Time
+a6d=Nouveau d\u00e9cor nouveau d\u00e9fi ! \n Le sol est dur alors attention \u00e0 votre vitesse !
+a7 =Good Ol' Time
+a7d=Nouveau d\u00e9cor nouveau d\u00e9fi ! \n Le sol est dur alors attention \u00e0 votre vitesse !
+
+lmttime1=\ en 
+lmttime2=\ secondes
+lmtjump1=\ en 
+lmtjump2=\ sauts
+
+objscore1 =Marquer 
+objscore2  =\ points
+objcombo1 =Faire 
+objcombo2 =\ combos 
+objbair1  =R\u00e9aliser un Big Air de 
+objbair2  =\ points 
+objconsgl1=Atterrir correctement 
+objconsgl2=\ fois \u00e0 la suite\n
+objdig1   =Creuser 
+objdig2   =\ m\u00e8tres 
+objgl1    =Faire 
+objgl2    =\ bons atterrissages 
+objheight1=Atteindre une altitude de 
+objheight2=\ m\u00e8tres
+objdist1  =Parcourir une distance de 
+objcoin1  =Attraper 
+objcoin2  =\ pi\u00e8ces
+
+
+c2c =Cliquer pour continuer
+tuto1=Int\u00e9ressant... Une taupe voyageuse ! 
+tuto2=...Mais totalement hors de contr\u00f4le... 
+tuto3=Voyons comment arranger \u00e7a 
+tuto4=Touche le c\u00f4t\u00e9 gauche \n pour tourner \u00e0 gauche 
+tuto5=Touche le c\u00f4t\u00e9 droit \n pour tourner \u00e0 droite 
+tuto6=La route sera longue, mais j'ai une super astuce !  
+tuto7=Ok d'abord il faut sauter!  
+tuto8=Maintenant atterri avec le bon angle
+tuto9=Bien jou\u00e9 ! Encore!
+tuto10=Vois-tu cette aura autour de toi? C'est ton 6ème sens de taupe!
+tuto11=Ca remplace les flèches. Vert l'angle est bon, rouge ca fait mal!
+tuto12=Bien jou\u00e9 ! Avec un peu de style tu acc\u00e9l\u00e8rera plus! 
+tuto13=Ici le sol est meuble et agr\u00e9able. 
+tuto14=Tu gagnes de la vitesse juste en creusant ! 
+tuto15=Mais \u00e7a ne sera pas toujours le cas... 
+tuto16=Esp\u00e9rons que tu am\u00e9lioreras tes comp\u00e9tences avec le temps  
+tuto17=Fais quelques atterrissages pour continuer ton aventure
+
+tuto14=Wahoo ! Mais c'est que tu as un nouveau pouvoir !
+tuto15=Impressionnant, je ne pensais pas que tu irais si loin ! 
+tuto16=Et voil\u00e0 que maintenant tu peux contr\u00f4ler le temps ! 
+tuto17=Appuie sur le bouton pour ralentir le temps
+tuto18=Appuie \u00e0 nouveau pour revenir \u00e0 la normale
+tuto19=Bien utilis\u00e9, \u00e7a devrait t'aider \u00e0 atterrir...
+tuto20=Et \u00e0 faire un max de figures !!!!
+tuto21=Es-tu all\u00e9 voir la Boutique ?
+tuto22=Tu peux y am\u00e9liorer tes pouvoirs et tes comp\u00e9tences !
+tuto23=Histoire de d\u00e9penser ces pi\u00e8ces d'or durement acquises.
+tuto24=Allez ! Au travail ! Shine among moles !
+tuto25=Et essaie d'avoir 3 \u00e9toiles pour d\u00e9bloquer plus de trucs !!!!
+
+skip=Passer
+
+best     =Top Score :   
+newbest  =Meilleur Score !!!
+
+objscore=Score : 
+objheigh=Altitude : 
+objdig  =Creus\u00e9 : 
+objgl   =Bons Atterrissages : 
+objcoin =Pi\u00e8ces : 
+objdist =Distance :   
+
+fcom1=Saut P\u00e9rilleux Arri\u00e8re \n 
+fcom2=Double Backflip \n 
+fcom3=TRIPLE saut Arri\u00e8re!!! \n 
+fcom4=Impressionant Backflip x4\n 
+fcom5=Mais vous \u00eates FOU !!!!
+
+bcom1=Joli Saut P\u00e9rilleux\n 
+bcom2=Double Frontflip\n 
+bcom3=Est-ce Possible ??\n 
+bcom4=Mais quelle taupe !!\n 
+bcom5=Psychopathe...\n 
+
+hcom1=L
+hcom2=oooooooo
+hcom3=ng Trou \n 
+hcom4=LoOoOoOong Trou !! \n
+
+lcom1=Bon Atterrissage Capitaine !
+lcom2=Atterrissage PARFAIT !!!
+
+bnscom1=Griffes Renforc\u00e9es !
+bnscom2=Plus de CONTROLE !!!
+bnscom3=+5s, +1 vitesse... What else? 
+
+heightcom1=Nouvel Horizon !! : \n+

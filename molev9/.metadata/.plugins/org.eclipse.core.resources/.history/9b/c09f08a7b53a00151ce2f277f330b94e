@@ -1,0 +1,68 @@
+
+moleclassic.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+body
+  rotate: false
+  xy: 1, 264
+  size: 533, 270
+  orig: 533, 270
+  offset: 0, 0
+  index: -1
+pawf
+  rotate: false
+  xy: 1, 121
+  size: 354, 141
+  orig: 354, 141
+  offset: 0, 0
+  index: -1
+pawr
+  rotate: false
+  xy: 1, 1
+  size: 165, 118
+  orig: 165, 118
+  offset: 0, 0
+  index: -1
+arm
+  rotate: false
+  xy: 357, 122
+  size: 150, 140
+  orig: 150, 140
+  offset: 0, 0
+  index: -1
+leg
+  rotate: false
+  xy: 168, 24
+  size: 128, 95
+  orig: 128, 95
+  offset: 0, 0
+  index: -1
+tail
+  rotate: false
+  xy: 298, 44
+  size: 85, 75
+  orig: 85, 75
+  offset: 0, 0
+  index: -1
+eye1
+  rotate: false
+  xy: 385, 50
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+eye2
+  rotate: false
+  xy: 449, 50
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+eyelid
+  rotate: false
+  xy: 385, 4
+  size: 59, 44
+  orig: 59, 44
+  offset: 0, 0
+  index: -1

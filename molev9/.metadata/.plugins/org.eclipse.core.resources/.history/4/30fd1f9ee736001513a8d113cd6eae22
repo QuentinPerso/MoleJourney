@@ -1,0 +1,169 @@
+package quentin.jeu.mole.graphics;
+
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
+
+public class RandomBg {
+	
+	
+	private Sprite image;
+	private Sprite[] imagesspec;
+	private OrthographicCamera cam;
+	private float size, ystart;
+	private int numdrawx, numdrawy;
+	private float depthX, depthY, scale;
+	private int xoffset;
+	
+
+	
+	/** PosY relative to your image's height
+	 *  @author Quentin 
+	 * @param numdrawx */
+	
+	public RandomBg(final Sprite image, float size, float scale, float ystart, float yend, float depthX, float depthY, OrthographicCamera gameCam, int numdrawx) {
+		
+		this.image = image;
+		this.size=size;
+		this.scale=scale;
+		this.depthX=depthX;
+		this.depthY=depthY;
+		this.ystart=ystart;
+		this.numdrawx=numdrawx;
+		xoffset = -numdrawx/2;
+		numdrawy=(int) (1.7f*(yend-ystart)/size);
+		this.cam = gameCam;
+		
+		imagesspec = new Sprite[numdrawx*numdrawy];
+		int i=0;
+		for(int col=0;col<numdrawx;col++){
+			for(int row=0;row<numdrawy;row++){
+				imagesspec[i]= new Sprite(image.getTexture());
+				imagesspec[i].setSize(size, size);
+				float r= MathUtils.random(0,3)*90;
+				imagesspec[i].setOrigin(size/2, size/2);
+				imagesspec[i].setRotation(r);
+				
+				i++;
+			}	
+		}
+	}
+
+	public void render(SpriteBatch sb) {
+		
+		float x = (( cam.viewportWidth / 2 + cam.position.x) * depthX);// % (numdrawx*image.getWidth());
+		float y = (( cam.viewportHeight / 2 + cam.position.y) * depthY) ;
+		
+		//left side<first image
+		while((cam.position.x-cam.viewportWidth*cam.zoom/2<x+(xoffset) * (image.getWidth()))){
+			xoffset--;
+			
+		}
+		//right side> last image
+		while(cam.position.x+cam.viewportWidth*cam.zoom/2>(x+(numdrawx+xoffset-1) * (image.getWidth()))){
+			xoffset++;
+		}
+		
+		int i=0;
+		for(int col = -(numdrawx/2+1)+xoffset; col < numdrawx+xoffset; col++){
+			for(int row=0;row<numdrawy;row++){
+				imagesspec[i].setPosition((col-numdrawx/2-2f)*size/1.7f+x, ystart+row*size/1.7f+y);
+				if(!onScreen(imagesspec[i])){
+					float s= size+MathUtils.random(-scale,0);
+					imagesspec[i].setSize(s, s);
+				}
+				
+				
+				if(onScreen(imagesspec[i])){
+					imagesspec[i].draw(sb);
+				}
+				i++;
+			
+			}
+		}
+	}
+	
+	public void render(SpriteBatch sb, int freq, float rotspeed, boolean rotate) {
+		
+		float x = (( cam.viewportWidth  / 2 + cam.position.x+MathUtils.random(0,0.01f)) * depthX) % (numdrawx*image.getWidth());
+		float y = (( cam.viewportHeight / 2 + cam.position.y+MathUtils.random(0,0.02f)) * depthY) % (numdrawy*image.getHeight());
+		
+		//left side<first image
+		while((cam.position.x-cam.viewportWidth*cam.zoom/2<x+(xoffset) * (image.getWidth()))){
+			xoffset--;
+			
+		}
+		//right side> last image
+		while(cam.position.x+cam.viewportWidth*cam.zoom/2>(x+(numdrawx+xoffset-1) * (image.getWidth()))){
+			xoffset++;
+		}
+		
+		int i=0;
+		for(int col = -(numdrawx/2+1)+xoffset; col < numdrawx+xoffset; col++){
+			for(int row=0;row<numdrawy;row=row+freq){
+				
+				imagesspec[i].setPosition((col-numdrawx/2-2f)*size/1.7f+x, ystart+row*size/1.7f+y);
+				
+				
+				if(onScreen(imagesspec[i])){
+					imagesspec[i].draw(sb);
+					if(rotate)imagesspec[i].rotate(rotspeed+MathUtils.random(-0.01f,0.01f));
+				}
+				else if(almostonScreen(imagesspec[i])){
+					float s= size+MathUtils.random(-scale,0);
+					imagesspec[i].setSize(s, s);
+				}
+				i++;
+			
+			}
+		}
+	}
+
+	private boolean onScreen(Sprite image){
+		if(true && cam.position.x-cam.viewportWidth*cam.zoom/2<(image.getX()+size)
+				&& cam.position.x+cam.viewportWidth*cam.zoom/2>(image.getX())
+				&& cam.position.y-cam.viewportHeight*cam.zoom/2<(image.getY()+size) 
+				&& cam.position.y+cam.viewportHeight*cam.zoom/2>(image.getY())
+	   )	 return true;
+		else return false;
+		
+	}
+	private boolean almostonScreen(Sprite image){
+		if(true && cam.position.x-cam.viewportWidth*cam.zoom<(image.getX()+size)
+				&& cam.position.x+cam.viewportWidth*cam.zoom>(image.getX())
+				&& cam.position.y-cam.viewportHeight*cam.zoom<(image.getY()+size) 
+				&& cam.position.y+cam.viewportHeight*cam.zoom>(image.getY())
+	   )	 return true;
+		else return false;
+		
+	}
+
+	public void setSize(float width, float height) {
+		image.setSize(width, height);
+		
+	}
+
+	public float getWidth() {
+		float width = image.getWidth();
+		return width;
+	}
+
+	public float getHeight() {
+		float height = image.getHeight();
+		return height;
+	}
+	
+	public Texture getSpritetext(){
+		Texture texture = image.getTexture();
+		return texture;
+	}
+	
+	public Sprite getSprite(){
+		Sprite sprite = image;
+		return sprite;
+	}
+
+}
+

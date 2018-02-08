@@ -1,0 +1,25 @@
+package quentin.jeu.mole;
+
+public interface GameServices {
+
+	public void signIn();
+	public void signOut();
+	public void rateGame();
+	public void submitScore1(long score);
+	public void submitScore2(long score);
+	public void submitScore3(long score);
+	//public void submitScore4(long score);
+	public void submitScore5(long score);
+	public void submitScore6(long score);
+	public void checkachiev();
+	public void showAchieve();
+	public void showScores();
+	public void showScore1();
+	public void showScore2();
+	public void showScore3();
+	public void showScore4();
+	public void showScore5();
+	public void showScore6();
+	public boolean isSignedIn();
+	
+}

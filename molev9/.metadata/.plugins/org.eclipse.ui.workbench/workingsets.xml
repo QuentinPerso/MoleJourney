@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1435592688780_1" label="mole" name="mole"/>
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1437914540843_2" label="molev9g" name="molev9g">
+<item elementID="=molegame-html" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=molegame-android" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=molev9g" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=molegame-desktop" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=molegame-core" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=molegame-ios" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1435591828035_0" label="Window Working Set" name="Aggregate for window 1435591828035"/>
+</workingSetManager>

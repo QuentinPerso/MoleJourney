@@ -1,0 +1,120 @@
+package quentin.jeu.mole.utils;
+
+import java.util.Calendar;
+
+public class TimeCalc {
+	
+	private int pyear, pmonth, pday, phour, pminute, psecond;
+	private int year, month, day, hour, minute, second;
+	private int timeelapsfromsave;
+	private int timelaps;
+	private final static int TIME2LIFE=1800, MAXLIVES=5;
+	private boolean lifeupdate = false;
+	public  boolean uiLifeUp = false;
+	public  int mintnl,sectnl;
+	public String time2;
+	
+	public TimeCalc(){
+	/////////////////////////////////////// time elapsed from last save
+		pyear   = Save.gd.year;
+		pmonth  = Save.gd.month;
+		pday    = Save.gd.day;
+		phour   = Save.gd.hour;
+		pminute = Save.gd.minute;
+		psecond = Save.gd.second;
+		
+		year   = Calendar.getInstance().get(Calendar.YEAR);
+		month  = Calendar.getInstance().get(Calendar.MONTH);
+		day    = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		hour   = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		minute = Calendar.getInstance().get(Calendar.MINUTE);
+		second = Calendar.getInstance().get(Calendar.SECOND);
+		timelaps =Save.gd.timelaps;
+		
+		timeelapsfromsave=timelaps+(second-psecond)+60*((minute-pminute)+60*(hour-phour)+1440*(day-pday)+43200*(month-pmonth)+518400*(year-pyear));
+		
+		/*System.out.println("time saved : "+pminute+":"+psecond);
+		System.out.println("time : " + Calendar.getInstance().get(Calendar.MINUTE)+
+				":"+Calendar.getInstance().get(Calendar.SECOND));*/
+		System.out.println("Timelaps : " + timeelapsfromsave);
+		
+		if(Save.gd.lives<MAXLIVES || timeelapsfromsave<0){
+			if((Save.gd.lives+1*(timeelapsfromsave/TIME2LIFE))<=MAXLIVES) {
+				Save.gd.lives+=1*(timeelapsfromsave/TIME2LIFE);
+			}
+			else{
+				Save.gd.lives=MAXLIVES;
+			}
+		}
+		uiLifeUp=true;
+		
+		//reset for current session
+		pyear   = Calendar.getInstance().get(Calendar.YEAR);
+		pmonth  = Calendar.getInstance().get(Calendar.MONTH);
+		pday    = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		phour   = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		pminute = Calendar.getInstance().get(Calendar.MINUTE);
+		psecond = Calendar.getInstance().get(Calendar.SECOND);
+	}
+	
+	public void update(){
+		
+		//calculate time elapsed during this session of the game in RT 
+		year   = Calendar.getInstance().get(Calendar.YEAR);
+		month  = Calendar.getInstance().get(Calendar.MONTH);
+		day    = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		hour   = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		minute = Calendar.getInstance().get(Calendar.MINUTE);
+		second = Calendar.getInstance().get(Calendar.SECOND);
+		
+		
+		timelaps= timeelapsfromsave%TIME2LIFE+ (second-psecond)+60*((minute-pminute)+60*(hour-phour)+1440*(day-pday)+43200*(month-pmonth)+518400*(year-pyear));
+		if(timelaps%TIME2LIFE==0 && !lifeupdate) { //1rst condition true for 1sec hence life update
+			lifeupdate=true;
+			if(Save.gd.lives<MAXLIVES){
+				Save.gd.lives+=1;
+				timelaps=0;
+				uiLifeUp=true;
+			}
+		}
+		if(timelaps%TIME2LIFE==1 && lifeupdate) lifeupdate=false;
+		
+		mintnl = ((TIME2LIFE-timelaps%TIME2LIFE))/60;
+		sectnl = ((TIME2LIFE-timelaps%TIME2LIFE)%3600)%60;
+		
+		if(Save.gd.lives<MAXLIVES){
+			String ms, ss;
+			if(mintnl<10)  ms = "0"+Integer.toString(mintnl);
+			else           ms = Integer.toString(mintnl);
+			if(sectnl<10)  ss = "0"+Integer.toString(sectnl);
+			else           ss = Integer.toString(sectnl);
+			time2=ms+":"+ss;
+		}
+		else{
+			time2 = "";
+			timeelapsfromsave=0;
+			pyear   = Calendar.getInstance().get(Calendar.YEAR);
+			pmonth  = Calendar.getInstance().get(Calendar.MONTH);
+			pday    = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+			phour   = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+			pminute = Calendar.getInstance().get(Calendar.MINUTE);
+			psecond = Calendar.getInstance().get(Calendar.SECOND);
+		}
+	}
+	
+	public void dispose(){
+		Save.gd.year   = Calendar.getInstance().get(Calendar.YEAR);
+		Save.gd.month  = Calendar.getInstance().get(Calendar.MONTH);
+		Save.gd.day    = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		Save.gd.hour   = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		Save.gd.minute = Calendar.getInstance().get(Calendar.MINUTE);
+		Save.gd.second = Calendar.getInstance().get(Calendar.SECOND);
+		Save.gd.timelaps=timelaps;
+		/*System.out.println("time when disp : "+Calendar.getInstance().get(Calendar.MINUTE)
+				+":"+Calendar.getInstance().get(Calendar.SECOND));
+		Save.save();
+		System.out.println("disp \n");*/
+		
+	}
+
+}
